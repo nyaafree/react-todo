@@ -19,6 +19,12 @@ export const App = () => {
     // 未完了TODOリストに追加が完了した場合はフォームを空に戻す
     setTodoText("");
   };
+  const onclickDelete = (index) => {
+    const newTodos = [...incompleteTodos];
+    // spliceは第一引数に削除する最初の要素のindexを、第二引数に何個の要素を削除するかを入力する
+    newTodos.splice(index, 1);
+    setIncompleteTodos(newTodos);
+  };
 
   return (
     <>
@@ -38,13 +44,14 @@ export const App = () => {
             理由：　仮想DOMでは変更前と変更後の差分だけを抽出しているため、差分のみを再レンダリングするため
             再レンダリングされた場合にLoopの何番目の要素なのか判断するための目印としてつける 
           */}
-          {incompleteTodos.map((todo) => {
+          {incompleteTodos.map((todo, index) => {
             return (
               <li key={todo}>
                 <div className="list-row">
                   <p>{todo}</p>
                   <button>完了</button>
-                  <button>削除</button>
+                  {/* 何番目の要素の削除ボタンが押されたか判断するために引数に配列のindexを渡す */}
+                  <button onClick={() => onclickDelete(index)}>削除</button>
                 </div>
               </li>
             );
