@@ -25,6 +25,17 @@ export const App = () => {
     newTodos.splice(index, 1);
     setIncompleteTodos(newTodos);
   };
+  const onClickComplete = (index) => {
+    // 未完了のリストから要素を削除
+    const newIncompleteTodos = [...incompleteTodos];
+    newIncompleteTodos.splice(index, 1);
+
+    // 完了リストに要素を追加
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+
+    setIncompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newCompleteTodos);
+  };
 
   return (
     <>
@@ -49,7 +60,7 @@ export const App = () => {
               <li key={todo}>
                 <div className="list-row">
                   <p>{todo}</p>
-                  <button>完了</button>
+                  <button onClick={() => onClickComplete(index)}>完了</button>
                   {/* 何番目の要素の削除ボタンが押されたか判断するために引数に配列のindexを渡す */}
                   <button onClick={() => onclickDelete(index)}>削除</button>
                 </div>
